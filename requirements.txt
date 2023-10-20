@@ -1,0 +1,12 @@
+numpy 
+pandas 
+tensorflow
+matplotlib
+seaborn
+nltk
+regex
+scikit-learn
+from-root
+uvicorn==0.18.3
+Jinja2==3.1.2
+-e . #It will find setup.py and install local package(Folder with __init__.py)
