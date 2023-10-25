@@ -53,7 +53,7 @@ class DataIngestion:
             logging.info("Entered the get_data_from_data_source method of Data ingestion class")
             self.download_dataset_github()
             os.makedirs(self.data_ingestion_config.DATA_INGESTION_ARTIFACTS_DIR, exist_ok=True)
-            dataset_list = [self.data_ingestion_config.TRAIN_DATA_PATH,self.data_ingestion_config.TEST_DATA_PATH,self.data_ingestion_config.DEV_DATA_PATH]
+            dataset_list = [self.data_ingestion_config.TRAIN_DATA_PATH,self.data_ingestion_config.TEST_DATA_PATH,self.data_ingestion_config.VAL_DATA_PATH]
             self.copy_file_locally(dataset_list, self.data_ingestion_config.DATA_INGESTION_ARTIFACTS_DIR)
             logging.info("Exited the get_data_from_data_source method of Data ingestion class")
 
@@ -90,12 +90,16 @@ class DataIngestion:
             self.get_data_from_data_source()
 
             logging.info("Fetched the data from GitHub")
-            data_file_path = self.data_ingestion_config.DATASET_PATH
+            train_data_file_path = self.data_ingestion_config.TRAIN_DATA_INGESTION_ARTIFACTS_DIR
+            test_data_file_path = self.data_ingestion_config.TEST_DATA_INGESTION_ARTIFACTS_DIR
+            val_data_file_path = self.data_ingestion_config.VAL_DATA_INGESTION_ARTIFACTS_DIR
             #data_file_path = self.unzip_and_clean()
 
             #logging.info("Unzipped file and split into train and valid")
 
-            data_ingestion_artifacts = DataIngestionArtifacts(data_file_path=data_file_path)
+            data_ingestion_artifacts = DataIngestionArtifacts(train_data_file_path=train_data_file_path,
+                                                              test_data_file_path=test_data_file_path,
+                                                              val_data_file_path=val_data_file_path)
 
             logging.info("Exited the initiate_data_ingestion method of Data ingestion class")
 
