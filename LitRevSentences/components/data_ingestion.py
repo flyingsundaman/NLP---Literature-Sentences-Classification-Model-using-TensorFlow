@@ -2,7 +2,6 @@ import os
 import sys
 import shutil
 import requests
-from zipfile import ZipFile
 from LitRevSentences.logger import logging
 from LitRevSentences.exception import CustomException
 from LitRevSentences.entity.config_entity import DataIngestionConfig
@@ -40,7 +39,6 @@ class DataIngestion:
             raise CustomException(e, sys) from e
         
     def copy_file_locally(self, sources: list, to: str) -> None:
-        #shutil.copy(self.data_ingestion_config.src_file_path, self.data_ingestion_config.ZIP_FILE_PATH)
         try:
             for source in sources:
                 shutil.copy(source, to)
@@ -60,52 +58,27 @@ class DataIngestion:
         except Exception as e:
             raise CustomException(e, sys) from e
 
-    """def unzip_and_clean(self):
-
-        logging.info("Entered the unzip_and_clean method of Data ingestion class")
-        try:
-            with ZipFile(self.data_ingestion_config.ZIP_FILE_PATH, 'r') as zip_ref:
-                zip_ref.extractall(self.data_ingestion_config.ZIP_FILE_DIR)
-
-            logging.info("Exited the unzip_and_clean method of Data ingestion class")
-
-            return self.data_ingestion_config.DATASET_ARTIFACTS_DIR
-
-        except Exception as e:
-            raise CustomException(e, sys) from e"""
-
-
     def initiate_data_ingestion(self) -> DataIngestionArtifacts:
-
         """
         Method Name :   initiate_data_ingestion
         Description :   This function initiates a data ingestion steps
         Output      :   Returns data ingestion artifact
         On Failure  :   Write an exception log and then raise an exception
         """
-
         logging.info("Entered the initiate_data_ingestion method of Data ingestion class")
         try:
-
             self.get_data_from_data_source()
-
             logging.info("Fetched the data from GitHub")
             train_data_file_path = self.data_ingestion_config.TRAIN_DATA_INGESTION_ARTIFACTS_DIR
             test_data_file_path = self.data_ingestion_config.TEST_DATA_INGESTION_ARTIFACTS_DIR
             val_data_file_path = self.data_ingestion_config.VAL_DATA_INGESTION_ARTIFACTS_DIR
-            #data_file_path = self.unzip_and_clean()
-
-            #logging.info("Unzipped file and split into train and valid")
 
             data_ingestion_artifacts = DataIngestionArtifacts(train_data_file_path=train_data_file_path,
                                                               test_data_file_path=test_data_file_path,
                                                               val_data_file_path=val_data_file_path)
 
             logging.info("Exited the initiate_data_ingestion method of Data ingestion class")
-
             logging.info(f"Data ingestion artifact: {data_ingestion_artifacts}")
-
             return data_ingestion_artifacts
-
         except Exception as e:
             raise CustomException(e, sys) from e

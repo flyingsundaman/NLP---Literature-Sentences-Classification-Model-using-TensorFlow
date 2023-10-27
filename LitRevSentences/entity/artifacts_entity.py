@@ -21,16 +21,13 @@ class DataTransformationArtifacts:
     train_labels_encoded: list
     test_labels_encoded: list
     val_labels_encoded: list
+    label_encoder: object 
 
 @dataclass
 class ModelTrainerArtifacts: 
     trained_model_path: str
     text_vectorizer: object
     token_embed: object
-
-    #test_dataset: None
-    #x_test_path: list
-    #y_test_path: list
 
 @dataclass
 class ModelEvaluationArtifacts:
@@ -40,3 +37,6 @@ class ModelEvaluationArtifacts:
 @dataclass
 class ModelPusherArtifacts:
     best_model_path: str
+    text_vectorizer: str
+    token_embed: str
+    label_encoder: str

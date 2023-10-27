@@ -4,14 +4,14 @@ from datetime import datetime
 # Common constants
 TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 ARTIFACTS_DIR = os.path.join("artifacts", TIMESTAMP)
-#LABEL = 'label'
 DATASET_DIR = "data"
 TRAIN_FILE = "train.txt"
 TEST_FILE = "test.txt"
 DEV_FILE = "dev.txt"
 MODEL_NAME = 'model.keras'
-TEXT_VECTORIZER_NAME =' text_vectorizer.pkl'
-TOKEN_EMBED_NAME = 'token_embed.pkl'
+TEXT_VECTORIZER_NAME =' text_vectorizer'
+TOKEN_EMBED_NAME = 'token_embed'
+LABEL_ENCODER_NAME = 'label_encoder.pickle'
 #APP_HOST = "0.0.0.0"
 #APP_PORT = 8080
 
@@ -38,7 +38,7 @@ OUTPUT_SEQUENCE_LENGTH = 55
 length_rct_20k_text_vocab = 64841
 token_embed_OUTPUT_DIM = 128
 token_embed_mask_zero = True
-EPOCH = 0
+EPOCH = 2
 BATCH_SIZE = 128
 VALIDATION_SPLIT = 0.2
 

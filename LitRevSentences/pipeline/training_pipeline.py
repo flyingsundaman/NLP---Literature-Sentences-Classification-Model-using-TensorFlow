@@ -73,14 +73,16 @@ class TrainPipeline:
         except Exception as e:
             raise CustomException(e, sys) from e
 
-    def start_model_pusher(self,model_evaluation_artifacts: ModelEvaluationArtifacts, model_trainer_artifacts: ModelTrainerArtifacts) -> ModelPusherArtifacts:
+    def start_model_pusher(self,model_evaluation_artifacts: ModelEvaluationArtifacts, model_trainer_artifacts: ModelTrainerArtifacts, data_transformation_artifacts=DataTransformationArtifacts) -> ModelPusherArtifacts:
+        
         if model_evaluation_artifacts.is_model_accepted == True:
             logging.info("Entered the start_model_pusher method of TrainPipeline class")
             try:
                 model_pusher = ModelPusher(
                     model_pusher_config=self.model_pusher_config,
                     model_evaluation_artifacts=model_evaluation_artifacts,
-                    model_trainer_artifacts=model_trainer_artifacts
+                    model_trainer_artifacts=model_trainer_artifacts,
+                    data_transformation_artifacts= data_transformation_artifacts
                 )
                 model_pusher_artifact = model_pusher.initiate_model_pusher()
                 logging.info("Initiated the model pusher")
@@ -107,7 +109,8 @@ class TrainPipeline:
                                                                     data_transformation_artifacts=data_transformation_artifacts)
 
             model_pusher_artifacts = self.start_model_pusher(model_evaluation_artifacts=model_evaluation_artifacts, 
-                                                             model_trainer_artifacts = model_trainer_artifacts)
+                                                             model_trainer_artifacts = model_trainer_artifacts,
+                                                             data_transformation_artifacts=data_transformation_artifacts)
 
             logging.info("Exited the run_pipeline method of TrainPipeline class")   
 
