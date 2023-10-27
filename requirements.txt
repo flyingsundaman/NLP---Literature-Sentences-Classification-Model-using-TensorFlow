@@ -11,4 +11,5 @@ uvicorn==0.18.3
 Jinja2==3.1.2
 streamlit
 altair<5
+tabulate
 -e . #It will find setup.py and install local package(Folder with __init__.py)
