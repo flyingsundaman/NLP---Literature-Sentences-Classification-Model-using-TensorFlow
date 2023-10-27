@@ -9,7 +9,9 @@ DATASET_DIR = "data"
 TRAIN_FILE = "train.txt"
 TEST_FILE = "test.txt"
 DEV_FILE = "dev.txt"
-MODEL_NAME = 'model.h5'
+MODEL_NAME = 'model.keras'
+TEXT_VECTORIZER_NAME =' text_vectorizer.pkl'
+TOKEN_EMBED_NAME = 'token_embed.pkl'
 #APP_HOST = "0.0.0.0"
 #APP_PORT = 8080
 
@@ -28,34 +30,24 @@ TRAIN_ONE_HOT_NAME = "train_labels_one_hot.csv"
 TEST_ONE_HOT_NAME = "test_labels_one_hot.csv"
 VAL_ONE_HOT_NAME = "val_labels_one_hot.csv"
 
-#
-#
-
 # Model training constants
 MODEL_TRAINER_ARTIFACTS_DIR = 'ModelTrainerArtifacts'
 TRAINED_MODEL_DIR = 'trained_model'
-TRAINED_MODEL_NAME = 'model.keras'
-#X_TEST_FILE_NAME = 'x_test.csv'
-#Y_TEST_FILE_NAME = 'y_test.csv'
-#X_TRAIN_FILE_NAME = 'x_train.csv'
 MAX_TOKENS = 68000
 OUTPUT_SEQUENCE_LENGTH = 55 
 length_rct_20k_text_vocab = 64841
 token_embed_OUTPUT_DIM = 128
 token_embed_mask_zero = True
-
-RANDOM_STATE = 42
-EPOCH = 20
+EPOCH = 0
 BATCH_SIZE = 128
 VALIDATION_SPLIT = 0.2
 
 
 # Model Architecture constants
-MAX_WORDS = 50000
-MAX_LEN = 300
-LOSS = 'binary_crossentropy'
+LOSS = "categorical_crossentropy"
 METRICS = ['accuracy']
-ACTIVATION = 'sigmoid'
+ACTIVATION = 'softmax'
+OPTIMIZER = "adam"
 
 
 # Model  Evaluation constants

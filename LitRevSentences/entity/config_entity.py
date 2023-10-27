@@ -39,30 +39,21 @@ class DataTransformationConfig:
 class ModelTrainerConfig: 
     def __init__(self):
         self.TRAINED_MODEL_DIR: str = os.path.join(os.getcwd(),ARTIFACTS_DIR,MODEL_TRAINER_ARTIFACTS_DIR) 
-        self.TRAINED_MODEL_PATH = os.path.join(self.TRAINED_MODEL_DIR,TRAINED_MODEL_NAME)
-        #self.X_TEST_DATA_PATH = os.path.join(self.TRAINED_MODEL_DIR, X_TEST_FILE_NAME)
-        #self.Y_TEST_DATA_PATH = os.path.join(self.TRAINED_MODEL_DIR, Y_TEST_FILE_NAME)
-        #self.X_TRAIN_DATA_PATH = os.path.join(self.TRAINED_MODEL_DIR, X_TRAIN_FILE_NAME)
+        self.TRAINED_MODEL_PATH = os.path.join(self.TRAINED_MODEL_DIR, MODEL_NAME)
         self.MAX_TOKENS = MAX_TOKENS
         self.OUTPUT_SEQUENCE_LENGTH = OUTPUT_SEQUENCE_LENGTH
         self.length_rct_20k_text_vocab = length_rct_20k_text_vocab
         self.token_embed_OUTPUT_DIM = token_embed_OUTPUT_DIM
         self.token_embed_mask_zero = token_embed_mask_zero
-
-        self.MAX_WORDS = MAX_WORDS
-        self.MAX_LEN = MAX_LEN
         self.LOSS = LOSS
         self.METRICS = METRICS
         self.ACTIVATION = ACTIVATION
-        #self.LABEL = LABEL
-        #self.TWEET = TWEET
-        self.RANDOM_STATE = RANDOM_STATE
         self.EPOCH = EPOCH
         self.BATCH_SIZE = BATCH_SIZE
         self.VALIDATION_SPLIT = VALIDATION_SPLIT
 
 
-"""
+
 @dataclass
 class ModelEvaluationConfig: 
     def __init__(self):
@@ -70,9 +61,8 @@ class ModelEvaluationConfig:
         self.BEST_MODEL_DIR_PATH: str = os.path.join(self.MODEL_EVALUATION_MODEL_DIR,BEST_MODEL_DIR)
         self.BEST_MODEL_DIR_PATH_SOURCE: str = os.path.join(os.getcwd(),BEST_MODEL_DIR,MODEL_NAME)
         self.MODEL_NAME = MODEL_NAME 
-        self.src_file_path = os.path.join(os.getcwd(),ZIP_FILE_NAME)
+        #self.src_file_path = os.path.join(os.getcwd(),ZIP_FILE_NAME)
         self.BEST_MODEL_PATH = os.path.join(self.MODEL_EVALUATION_MODEL_DIR,BEST_MODEL_DIR) #TODO Make sure correct. Change back to os.getcwd() if error
-
 
 
 @dataclass
@@ -82,5 +72,6 @@ class ModelPusherConfig:
         self.TRAINED_MODEL_PATH = os.path.join(os.getcwd(),ARTIFACTS_DIR, MODEL_TRAINER_ARTIFACTS_DIR, MODEL_NAME)
         self.MODEL_NAME = MODEL_NAME
         self.BEST_MODEL_PATH = os.path.join(os.getcwd(),BEST_MODEL_DIR)
+        self.BEST_MODEL_TEXT_VECTORIZER_DIR_PATH_SOURCE: str = os.path.join(os.getcwd(),BEST_MODEL_DIR,TEXT_VECTORIZER_NAME)
+        self.BEST_MODEL_TOKEN_EMBED_DIR_PATH_SOURCE: str = os.path.join(os.getcwd(),BEST_MODEL_DIR,TOKEN_EMBED_NAME)
         
-    """

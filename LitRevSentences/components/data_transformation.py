@@ -2,6 +2,7 @@ import os
 import sys
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 import tensorflow as tf
 from LitRevSentences.logger import logging 
 from LitRevSentences.exception import CustomException
@@ -61,6 +62,29 @@ class DataTransformation:
             logging.info("Exited the One_hot_encode_labels function")
             return labels_one_hot    
 
+    def label_encoder(self, dfs:list):
+
+        try:
+            logging.info("Entered into the label_encoder function")
+            count = 0
+            label_encoder_list = []
+            for df in dfs:
+                if count == 0:
+                    logging.info(f"declare label_encoder and fit it with the df")
+                    label_encoder = LabelEncoder()
+                    encoder = label_encoder.fit_transform(df["target"].to_numpy())
+                    count += 1
+                    label_encoder_list.append(encoder)
+                else:
+                    logging.info(f"transform the df with label_encoder")
+                    encoder = label_encoder.transform(df["target"].to_numpy())
+                    label_encoder_list.append(encoder)
+
+            logging.info("Exited the label_encoder function")
+            return label_encoder_list
+        except Exception as e:
+            raise CustomException(e,sys) from e
+
     def raw_data_cleaning(self, file_paths:list):
         
         try:
@@ -79,8 +103,10 @@ class DataTransformation:
             # One hot encode for labels
             train_labels_one_hot, test_labels_one_hot, val_labels_one_hot = self.One_hot_encode_labels([df_train,df_test,df_val])
 
+            train_labels_encoded, test_labels_encoded, val_labels_encoded = self.label_encoder([df_train,df_test,df_val])
+
             logging.info(f"Exited the raw_data_cleaning function")
-            return train_sentences, test_sentences, val_sentences, train_labels_one_hot, test_labels_one_hot, val_labels_one_hot
+            return train_sentences, test_sentences, val_sentences, train_labels_one_hot, test_labels_one_hot, val_labels_one_hot, train_labels_encoded, test_labels_encoded, val_labels_encoded
         
         except Exception as e:
             raise CustomException(e,sys) from e
@@ -105,7 +131,7 @@ class DataTransformation:
             #val_sentences, val_labels_one_hot = self.raw_data_cleaning(self.data_ingestion_artifacts.val_data_file_path)
             #df[self.data_transformation_config.TWEET]=df[self.data_transformation_config.TWEET].apply(self.NLP_data_cleaning)
             dataset_list = [self.data_ingestion_artifacts.train_data_file_path , self.data_ingestion_artifacts.test_data_file_path, self.data_ingestion_artifacts.val_data_file_path]
-            train_sentences, test_sentences, val_sentences, train_labels_one_hot, test_labels_one_hot, val_labels_one_hot = self.raw_data_cleaning(dataset_list)
+            train_sentences, test_sentences, val_sentences, train_labels_one_hot, test_labels_one_hot, val_labels_one_hot, train_labels_encoded, test_labels_encoded, val_labels_encoded = self.raw_data_cleaning(dataset_list)
 
             """with open(self.data_transformation_config.TRAIN_SENTENCES_FILE_PATH, "w") as file:
                 for item in train_sentences:
@@ -127,7 +153,18 @@ class DataTransformation:
                 train_dataset= self.data_transformation_config.TRAIN_DATASET,
                 test_dataset= self.data_transformation_config.TEST_DATASET,
                 val_dataset= self.data_transformation_config.VAL_DATASET,
-                train_sentences = train_sentences
+
+                train_sentences = train_sentences,
+                test_sentences=test_sentences,
+                val_sentences=val_sentences,
+
+                train_labels_one_hot = train_labels_one_hot,
+                test_labels_one_hot = test_labels_one_hot,
+                val_labels_one_hot = val_labels_one_hot,
+
+                train_labels_encoded = train_labels_encoded,  
+                test_labels_encoded = test_labels_encoded,
+                val_labels_encoded = val_labels_encoded
             )
             logging.info("returning the DataTransformationArtifacts")
             return data_transformation_artifact

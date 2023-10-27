@@ -13,10 +13,22 @@ class DataTransformationArtifacts:
     test_dataset: str
     val_dataset: str
     train_sentences: list
+    test_sentences: list
+    val_sentences: list
+    train_labels_one_hot: list
+    test_labels_one_hot: list
+    val_labels_one_hot: list
+    train_labels_encoded: list
+    test_labels_encoded: list
+    val_labels_encoded: list
 
 @dataclass
 class ModelTrainerArtifacts: 
     trained_model_path: str
+    text_vectorizer: object
+    token_embed: object
+
+    #test_dataset: None
     #x_test_path: list
     #y_test_path: list
 

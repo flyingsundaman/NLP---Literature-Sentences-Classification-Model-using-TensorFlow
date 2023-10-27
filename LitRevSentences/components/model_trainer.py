@@ -123,7 +123,7 @@ class ModelTrainer:
 
             model.fit(train_dataset,
                     steps_per_epoch=int(0.1 * len(train_dataset)),
-                    epochs=1,
+                    epochs=self.model_trainer_config.EPOCH,
                     validation_data=val_dataset,
                     validation_steps=int(0.1 * len(val_dataset)))
 
@@ -141,8 +141,10 @@ class ModelTrainer:
             #x_train.to_csv(self.model_trainer_config.X_TRAIN_DATA_PATH)
 
             model_trainer_artifacts = ModelTrainerArtifacts(
-                trained_model_path = self.model_trainer_config.TRAINED_MODEL_PATH
-                #x_test_path = self.model_trainer_config.X_TEST_DATA_PATH,
+                trained_model_path = self.model_trainer_config.TRAINED_MODEL_PATH,
+                text_vectorizer = text_vectorizer,
+                token_embed = token_embed
+                #test_dataset = test_dataset
                 #y_test_path = self.model_trainer_config.Y_TEST_DATA_PATH
                 )
             logging.info("Returning the ModelTrainerArtifacts")
